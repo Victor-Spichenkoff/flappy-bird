@@ -1,0 +1,87 @@
+@font-face {
+    font-family: 'Pixel';
+    src: url('../fonts/Pixel.ttf') format('truetype');
+}
+
+
+div#area {
+    width: 700px;
+    height: 450px;
+    background-color: skyblue;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.bird {
+    position: absolute;
+    left: 100px;
+    width: 34px;
+    top: 10px;
+    user-select: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.pontuacao {
+    position: absolute;
+    right: 17px;
+    top: 2px;
+    font-size: 40px;
+    padding: 0px;
+    margin: 0;
+    font-family: 'Pixel';
+    z-index: 10;
+}
+
+div.perdeu {
+    display: flex;
+    width: 70vw;
+    height: 70vh;
+    background-color: skyblue;
+    position: relative;
+}
+
+.perdeu {
+    color: red;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    font-style: oblique;
+    order: 100;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.par {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 60px;
+    z-index: 100;
+}
+
+.par .ponta {
+    width: 60px;
+    height: 28px;
+    border: 1px rgb(19, 56, 2) solid;
+    background-color: green;
+}
+
+.base {
+    background-color: green;
+    width: 70%;
+    height: 190px;
+    display: flex;
+    justify-content: center;
+    border: 1px rgb(19, 56, 2) solid;
+}
+
+.teste {
+    color: red;
+    width: 20px;
+    height: 20px;
+}
