@@ -7,10 +7,6 @@
     font-family: 'Oswald', sans-serif;
 }
 
-html {
-    height: 100%;
-}
-
 body {
     margin: 0;
     background-color: #0D262D;
@@ -19,8 +15,11 @@ body {
 }
 
 .conteudo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100%;
+    /* display: flex;
+    flex-direction: row; */
+}
+
+
+h1 {
+    text-align: center;
 }

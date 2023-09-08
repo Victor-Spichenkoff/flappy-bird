@@ -3,6 +3,9 @@
     src: url('../fonts/Pixel.ttf') format('truetype');
 }
 
+* {
+    user-select: none;
+}
 
 div#area {
     width: 700px;
@@ -11,6 +14,8 @@ div#area {
     position: relative;
     overflow: hidden;
     z-index: 0;
+    margin: auto;
+    border: 2px black solid;
 }
 
 .bird {
@@ -34,7 +39,7 @@ div#area {
     z-index: 10;
 }
 
-div.perdeu {
+/* div.perdeu {
     display: flex;
     width: 70vw;
     height: 70vh;
@@ -51,18 +56,28 @@ div.perdeu {
     order: 100;
     flex-wrap: wrap;
     justify-content: center;
-}
+} */
 
 
 .par {
-    display: flex;
+    position: absolute;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     height: 100%;
-    width: 60px;
-    z-index: 100;
+    width: fit-content;
+    margin-right: 100px;
 }
+
+
+.coluna {/*configura uma coluna(base + ponta)*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 
 .par .ponta {
     width: 60px;
@@ -71,14 +86,16 @@ div.perdeu {
     background-color: green;
 }
 
+
 .base {
     background-color: green;
-    width: 70%;
-    height: 190px;
+    width: 80%;
+    height: 100px;
     display: flex;
     justify-content: center;
     border: 1px rgb(19, 56, 2) solid;
 }
+
 
 .teste {
     color: red;

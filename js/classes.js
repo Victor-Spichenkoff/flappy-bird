@@ -10,7 +10,6 @@ const pontaWidth = 60
 //passaro
 const passaro = document.getElementById('bird')
 const passaroHeight = passaro.clientHeight
-var passaroTop = 0
 
 
 let perdeu = false
@@ -39,9 +38,6 @@ function Coluna(reverse = false) {
     this.setAltura = altura => {
         base.style.height = `${altura}px`
     }
-
-
-    this.altura = base + ponta
 }
 
 
@@ -49,6 +45,7 @@ function calcularAltura() {
     const a1 = parseInt(Math.random() * (parHeiht - 150))
 
     const a2 = parHeiht - abertura - a1
+    console.log(a1, a2)
     return {a1, a2}
 }
 
@@ -71,38 +68,12 @@ function Par(start=0) {
     this.par.style.left = `${start}px`//tirar o 400
 
     this.setX = (dif) => {
-        let passaroLeft = passaro.style.left
-
-
         if(x > 0-pontaWidth) {
             x -= dif
-            if(x < passaroLeft && x > passaroLeft - 134) {//passaro
-                console.log(x, passaroLeft)
-                this.colidiu()
-            }
         } else {
             x = comprimento
-            this.novaAltura()
         }
         this.par.style.left = `${x}px`
-    }
-
-    this.novaAltura = () => {
-        const { a1, a2 } = calcularAltura()
-
-        c1.setAltura(a1)
-        c2.setAltura(a2)
-    }
-
-
-    this.colidiu = () => {
-        let aberturaTop = c1.altura
-        let passaroTop = passaro.style.top.replace('px', '')
-        if(aberturaTop > passaroTop) {
-            console.log('bateu')
-        } else if ((aberturaTop + abertura < passaroTop)) {
-            console.log('perdeu')
-        }
     }
 }
 
@@ -133,7 +104,7 @@ function AllColums(xBase) {
 
 
 
-var alturaAtual = 1
+var alturaAtual = 0
 
 //passaro
 function Passaro() {
@@ -149,46 +120,10 @@ function Passaro() {
 
 
         if(alturaAtual < 0 + passaroHeight) return true
-        if(alturaAtual > (450 - 26)) return true
+        if(alturaAtual > 450 - passaroHeight) return true
 
         if(podeDescer) passaro.style.top =  `${alturaAtual += 4}px`
     }
 }
 
-
-
-
-
-function Animar() {
-    // const colunas = new AllColums(100)
-    const colunas = new AllColums(comprimento)
-    area.appendChild(colunas.colunas)
-
-    const bird = new Passaro()
-
-    timer = setInterval(()=> {
-        colunas.move()
-        let bateu = bird.descer(timer)
-        if(bateu) {
-            perdeu = true
-            clearInterval(timer)
-        }
-    }, 30)
-}
-
-(function() {   new Animar()   })()
-// area.appendChild(new Par().par)
-// area.appendChild(new Par().par)
-
-let h = passaro.clientHeight
-let w = passaro.clientWidth
-let l = passaro.style.left
-
-console.log(h, w, l)
-// Colisao
-
-/*
-** Left em 100px
-
-pegar e ver se colide(horizonral com o passaro) - Par()
-*/
+export default {Passaro, AllColums}
