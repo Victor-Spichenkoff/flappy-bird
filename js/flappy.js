@@ -1,16 +1,19 @@
 const area = document.getElementById('area')
 const comprimento = area.clientWidth
+const pontuacao = document.getElementById('pontuacao')
 
 //barreiras
 const abertura = 100 + 28 *2//ponta
 const espacamento = 135
 const parHeiht = 450
 const pontaWidth = 60
+const pontaHeight = 28
 
 //passaro
 const passaro = document.getElementById('bird')
 const passaroHeight = passaro.clientHeight
 var passaroTop = 0
+let passaroLeft = 100
 
 
 let perdeu = false
@@ -20,6 +23,11 @@ function criarElemento(tipo='div', classe) {
     let elemento = document.createElement(tipo)
     elemento.className = classe
     return elemento
+}
+
+
+function aumentarPontos() {
+    pontuacao.innerText = Number(pontuacao.innerText) + 1
 }
 
 
@@ -70,15 +78,17 @@ function Par(start=0) {
 
     this.par.style.left = `${start}px`//tirar o 400
 
-    this.setX = (dif) => {
-        let passaroLeft = passaro.style.left
+    this.aberturaTop = a1
 
+    this.setX = (dif) => {
+        if (x == 100) aumentarPontos()//já passou, pode contar
 
         if(x > 0-pontaWidth) {
             x -= dif
-            if(x < passaroLeft && x > passaroLeft - 134) {//passaro
-                console.log(x, passaroLeft)
-                this.colidiu()
+            if(x <= passaroLeft + 34 && x >= passaroLeft - 60) {//passaro
+                console.log('colunaX:' + x)
+                const bateu = this.colidiu()
+                if(bateu) return true
             }
         } else {
             x = comprimento
@@ -87,20 +97,27 @@ function Par(start=0) {
         this.par.style.left = `${x}px`
     }
 
+
     this.novaAltura = () => {
         const { a1, a2 } = calcularAltura()
 
         c1.setAltura(a1)
         c2.setAltura(a2)
+
+        this.aberturaTop = a1
     }
 
 
     this.colidiu = () => {
-        let aberturaTop = c1.altura
         let passaroTop = passaro.style.top.replace('px', '')
-        if(aberturaTop > passaroTop) {
+
+        if(this.aberturaTop + pontaHeight > passaroTop) {
+            return true
             console.log('bateu')
-        } else if ((aberturaTop + abertura < passaroTop)) {
+            console.log(`Abertura top: ${this.aberturaTop} passaroTop: ${passaroTop}`)
+        } else if ((this.aberturaTop + abertura -56 < passaroTop)) {
+            console.log((this.aberturaTop + abertura - pontaHeight))
+            return true
             console.log('perdeu')
         }
     }
@@ -124,10 +141,11 @@ function AllColums(xBase) {
     let deslize = 3
 
     this.move = () => {
-        par1.setX(deslize)
-        par2.setX(deslize)
-        par3.setX(deslize)
-        par4.setX(deslize)
+        let bateu1 = par1.setX(deslize)
+        let bateu2 = par2.setX(deslize)
+        let bateu3 = par3.setX(deslize)
+        let bateu4 = par4.setX(deslize)
+        if(bateu1 || bateu2 || bateu3 || bateu4) return true
     }
 }
 
@@ -137,21 +155,31 @@ var alturaAtual = 1
 
 //passaro
 function Passaro() {
-
+    let vezes = 0//para esperar um pouci em em pé
 
     this.descer = (timer) => {
         let podeDescer = true
         window.onkeydown = () => {
             // const alturaAtual = passaro.clientTop
             if (!perdeu) passaro.style.top =  `${alturaAtual -= 36}px`
+            passaro.classList.remove('descer')
+            passaro.classList.add('subir')
             podeDescer = false
+            vezes = 0
         }
 
 
         if(alturaAtual < 0 + passaroHeight) return true
         if(alturaAtual > (450 - 26)) return true
 
-        if(podeDescer) passaro.style.top =  `${alturaAtual += 4}px`
+        if(podeDescer) {
+            passaro.style.top =  `${alturaAtual += 4}px`
+            vezes++
+            if(vezes == 6) {
+                passaro.classList.remove('subir')
+                passaro.classList.add('descer')
+            }
+        }
     }
 }
 
@@ -167,16 +195,18 @@ function Animar() {
     const bird = new Passaro()
 
     timer = setInterval(()=> {
-        colunas.move()
-        let bateu = bird.descer(timer)
-        if(bateu) {
+        let bateuColuna = colunas.move()
+        let bateuPassaro = bird.descer(timer)
+        if(bateuPassaro || bateuColuna) {
             perdeu = true
             clearInterval(timer)
         }
     }, 30)
 }
 
-(function() {   new Animar()   })()
+// (function() {   new Animar()   })()
+
+Animar()
 // area.appendChild(new Par().par)
 // area.appendChild(new Par().par)
 
@@ -190,5 +220,5 @@ console.log(h, w, l)
 /*
 ** Left em 100px
 
-pegar e ver se colide(horizonral com o passaro) - Par()
+ele bate só se for pela frente (por dentro não vai)
 */

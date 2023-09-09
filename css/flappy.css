@@ -23,10 +23,20 @@ div#area {
     left: 100px;
     width: 34px;
     top: 10px;
+    left: 100px;
     user-select: none;
     margin: 0px;
     padding: 0px;
 }
+
+.subir {
+    transform: rotate(-45deg);
+}
+
+.descer {
+    transform: rotate(35deg);
+}
+
 
 .pontuacao {
     position: absolute;
@@ -102,3 +112,4 @@ div#area {
     width: 20px;
     height: 20px;
 }
+
