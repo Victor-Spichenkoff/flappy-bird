@@ -31,6 +31,17 @@ function aumentarPontos() {
 }
 
 
+function perder() {
+    const pontos = pontuacao.innerText
+
+    area.innerHTML =`        
+        <div id="perdeu">
+            <p>Sua pontuação foi: ${pontos}</p>
+            <p>Aperte <srong>F5</srong> para recomeçar</p>
+        </div>`
+}
+
+
 function Coluna(reverse = false) {
     const base = criarElemento('span', 'base')
     const ponta = criarElemento('span', 'ponta')
@@ -86,7 +97,6 @@ function Par(start=0) {
         if(x > 0-pontaWidth) {
             x -= dif
             if(x <= passaroLeft + 34 && x >= passaroLeft - 60) {//passaro
-                console.log('colunaX:' + x)
                 const bateu = this.colidiu()
                 if(bateu) return true
             }
@@ -116,7 +126,7 @@ function Par(start=0) {
             console.log('bateu')
             console.log(`Abertura top: ${this.aberturaTop} passaroTop: ${passaroTop}`)
         } else if ((this.aberturaTop + abertura -56 < passaroTop)) {
-            console.log((this.aberturaTop + abertura - pontaHeight))
+            // console.log((this.aberturaTop + abertura - pontaHeight))
             return true
             console.log('perdeu')
         }
@@ -199,23 +209,20 @@ function Animar() {
         let bateuPassaro = bird.descer(timer)
         if(bateuPassaro || bateuColuna) {
             perdeu = true
+            setTimeout(()=> {
+                perder()
+            }, 10)
+            
             clearInterval(timer)
         }
     }, 30)
 }
 
-// (function() {   new Animar()   })()
+
 
 Animar()
-// area.appendChild(new Par().par)
-// area.appendChild(new Par().par)
 
-let h = passaro.clientHeight
-let w = passaro.clientWidth
-let l = passaro.style.left
 
-console.log(h, w, l)
-// Colisao
 
 /*
 ** Left em 100px
