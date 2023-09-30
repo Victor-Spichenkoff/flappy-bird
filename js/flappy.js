@@ -12,7 +12,7 @@ const pontaHeight = 28
 //passaro
 const passaro = document.getElementById('bird')
 const passaroHeight = passaro.clientHeight
-var passaroTop = 0
+var passaroTop = 30
 let passaroLeft = 100
 
 
