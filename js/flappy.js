@@ -12,7 +12,7 @@ const pontaHeight = 28
 //passaro
 const passaro = document.getElementById('bird')
 const passaroHeight = passaro.clientHeight
-var passaroTop = 30
+var passaroTop = 50
 let passaroLeft = 100
 
 
@@ -161,7 +161,7 @@ function AllColums(xBase) {
 
 
 
-var alturaAtual = 1
+var alturaAtual = passaroTop
 
 //passaro
 function Passaro() {
@@ -219,8 +219,9 @@ function Animar() {
 }
 
 
-
-Animar()
+setTimeout(()=>{
+    Animar()
+}, 100)
 
 
 
