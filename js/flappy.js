@@ -227,9 +227,7 @@ function Animar() {
 }
 
 
-setTimeout(()=>{
-    Animar()
-}, 1000)
+Animar()
 
 
 
