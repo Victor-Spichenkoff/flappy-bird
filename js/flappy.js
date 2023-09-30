@@ -72,9 +72,16 @@ function Coluna(reverse = false) {
 
 
 function calcularAltura() {
-    const a1 = parseInt(Math.random() * (parHeiht - 150))
+    let a1 = parseInt(Math.random() * (parHeiht - 150))
 
-    const a2 = parHeiht - abertura - a1
+    let a2 = parHeiht - abertura - a1
+
+    if(a1 + a2 + abertura + 42 != 450) {//evitar ficar fechado
+        a1 = parseInt(Math.random() * (parHeiht - 150))
+
+        a2 = parHeiht - abertura - a1
+    }
+
     return {a1, a2}
 }
 
