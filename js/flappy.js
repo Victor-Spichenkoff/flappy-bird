@@ -16,7 +16,14 @@ var passaroTop = 50
 let passaroLeft = 100
 
 
-let perdeu = false
+let perdeu = false//bug no git
+
+var podePerder = false
+setTimeout(()=>{
+    podePerder = true 
+}, 5000)
+
+
 
 
 function criarElemento(tipo='div', classe) {
@@ -210,7 +217,8 @@ function Animar() {
         if(bateuPassaro || bateuColuna) {
             perdeu = true
             setTimeout(()=> {
-                perder()
+                if(podePerder) perder()
+
             }, 10)
             
             clearInterval(timer)
