@@ -221,7 +221,7 @@ function Animar() {
 
 setTimeout(()=>{
     Animar()
-}, 100)
+}, 1000)
 
 
 
