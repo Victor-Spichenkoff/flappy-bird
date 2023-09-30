@@ -21,7 +21,7 @@ let perdeu = false//bug no git
 var podePerder = false
 setTimeout(()=>{
     podePerder = true 
-}, 3000)
+}, 500)
 
 
 
