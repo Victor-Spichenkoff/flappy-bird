@@ -19,7 +19,7 @@
 <br> <br>
 
 
-<h1>Flappy Bird (English version Below)</h1>   
+<h1>Flappy Bird</h1>   
 
 <hr>
 
